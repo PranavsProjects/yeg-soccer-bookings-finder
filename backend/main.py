@@ -1,13 +1,22 @@
 import httpx
 import asyncio
 import time
+from datetime import date, timedelta
 from bs4 import BeautifulSoup
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 cache = {}
-CACHE_TTL = 260  # 2 minutes
+CACHE_TTL = 260
 
 FACILITIES = [
     {'venue': 'turf-training-centre', 'id': 8347, 'name': 'Field A - TTC1'},
@@ -47,6 +56,19 @@ async def scrape_facility(client, facility, date):
 
     return {'facility': facility['name'], 'slots': available_times}
 
+async def scrape_date(d: str):
+    async with httpx.AsyncClient(timeout=20.0) as client:
+        tasks = [scrape_facility(client, f, d) for f in FACILITIES]
+        results = await asyncio.gather(*tasks)
+        cache[d] = (time.time(), list(results))
+
+@app.on_event("startup")
+async def warm_cache():
+    today = date.today().isoformat()
+    tomorrow = (date.today() + timedelta(days=1)).isoformat()
+    await scrape_date(today)
+    await scrape_date(tomorrow)
+
 @app.get("/slots")
 async def get_slots(date: str):
     if date in cache:
@@ -54,10 +76,6 @@ async def get_slots(date: str):
         if time.time() - cached_time < CACHE_TTL:
             return {'date': date, 'results': cached_result, 'cached': True}
 
-    async with httpx.AsyncClient() as client:
-        tasks = [scrape_facility(client, facility, date) for facility in FACILITIES]
-        results = await asyncio.gather(*tasks)
-
-    cache[date] = (time.time(), list(results))
-
-    return {'date': date, 'results': list(results), 'cached': False}
+    await scrape_date(date)
+    cached_time, cached_result = cache[date]
+    return {'date': date, 'results': cached_result, 'cached': False}
