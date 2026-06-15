@@ -6,444 +6,77 @@
 <title>YEG Soccer Finder</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bebas+Neue&display=swap');
-
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --black: #0a0f0a;
-    --dark: #111611;
-    --card: #161d16;
-    --card2: #1c241c;
-    --border: #2a3a2a;
-    --green: #39ff6a;
-    --green-dim: rgba(57,255,106,0.12);
-    --green-glow: 0 0 20px rgba(57,255,106,0.25);
-    --white: #f0f4f0;
-    --muted: #6b836b;
-    --radius: 12px;
+    --black: #0a0f0a; --dark: #111611; --card: #161d16; --card2: #1c241c;
+    --border: #2a3a2a; --green: #39ff6a; --green-dim: rgba(57,255,106,0.12);
+    --green-glow: 0 0 20px rgba(57,255,106,0.25); --white: #f0f4f0; --muted: #6b836b; --radius: 12px;
   }
-
-  html, body {
-    min-height: 100%;
-    font-family: 'Inter', sans-serif;
-    background: var(--black);
-    color: var(--white);
-    overflow-x: hidden;
-  }
-
-  /* ── HERO ── */
-  .hero {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 0 0 48px;
-    overflow: hidden;
-  }
-
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    background-image: url('https://images.unsplash.com/photo-1529900748604-07564a03e7a6?w=1600&q=80');
-    background-size: cover;
-    background-position: center;
-    filter: brightness(0.35) saturate(0.8);
-    z-index: 0;
-  }
-
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom,
-      rgba(10,15,10,0.2) 0%,
-      rgba(10,15,10,0.5) 50%,
-      rgba(10,15,10,0.95) 100%);
-    z-index: 1;
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 32px;
-    width: 100%;
-  }
-
-  .hero-eyebrow {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 3px;
-    color: var(--green);
-    text-transform: uppercase;
-    margin-bottom: 16px;
-  }
-
-  .hero-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(56px, 8vw, 100px);
-    line-height: 0.92;
-    color: var(--white);
-    letter-spacing: 1px;
-    margin-bottom: 24px;
-  }
-
+  html, body { min-height: 100%; font-family: 'Inter', sans-serif; background: var(--black); color: var(--white); overflow-x: hidden; }
+  .hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 0 48px; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; background-image: url('https://images.unsplash.com/photo-1529900748604-07564a03e7a6?w=1600&q=80'); background-size: cover; background-position: center; filter: brightness(0.35) saturate(0.8); z-index: 0; }
+  .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(10,15,10,0.2) 0%, rgba(10,15,10,0.5) 50%, rgba(10,15,10,0.95) 100%); z-index: 1; }
+  .hero-content { position: relative; z-index: 2; max-width: 1100px; margin: 0 auto; padding: 0 32px; width: 100%; }
+  .hero-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 3px; color: var(--green); text-transform: uppercase; margin-bottom: 16px; }
+  .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(56px, 8vw, 100px); line-height: 0.92; color: var(--white); letter-spacing: 1px; margin-bottom: 24px; }
   .hero-title span { color: var(--green); }
-
-  .hero-sub {
-    font-size: 16px;
-    color: rgba(240,244,240,0.55);
-    margin-bottom: 36px;
-    max-width: 480px;
-    line-height: 1.6;
-  }
-
-  /* ── DATE CONTROLS ── */
-  .controls {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-
-  .date-input-wrap {
-    position: relative;
-  }
-
-  .controls input[type="date"] {
-    background: rgba(255,255,255,0.06);
-    border: 1.5px solid var(--border);
-    border-radius: 10px;
-    padding: 12px 16px;
-    font-size: 15px;
-    font-family: 'Inter', sans-serif;
-    color: var(--white);
-    cursor: pointer;
-    outline: none;
-    transition: border-color 0.2s;
-    color-scheme: dark;
-  }
-
-  .controls input[type="date"]:focus {
-    border-color: var(--green);
-    box-shadow: var(--green-glow);
-  }
-
-  .search-btn {
-    background: var(--green);
-    color: var(--black);
-    border: none;
-    border-radius: 10px;
-    padding: 12px 24px;
-    font-size: 15px;
-    font-weight: 700;
-    font-family: 'Inter', sans-serif;
-    cursor: pointer;
-    transition: all 0.15s;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    letter-spacing: 0.3px;
-  }
-
+  .hero-sub { font-size: 16px; color: rgba(240,244,240,0.55); margin-bottom: 36px; max-width: 480px; line-height: 1.6; }
+  .controls { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .controls input[type="date"] { background: rgba(255,255,255,0.06); border: 1.5px solid var(--border); border-radius: 10px; padding: 12px 16px; font-size: 15px; font-family: 'Inter', sans-serif; color: var(--white); cursor: pointer; outline: none; transition: border-color 0.2s; color-scheme: dark; }
+  .controls input[type="date"]:focus { border-color: var(--green); box-shadow: var(--green-glow); }
+  .search-btn { background: var(--green); color: var(--black); border: none; border-radius: 10px; padding: 12px 24px; font-size: 15px; font-weight: 700; font-family: 'Inter', sans-serif; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; gap: 8px; }
   .search-btn:hover { background: #5affa0; box-shadow: var(--green-glow); }
   .search-btn:active { transform: scale(0.97); }
   .search-btn:disabled { background: #2a3a2a; color: var(--muted); cursor: not-allowed; box-shadow: none; }
-
   .spin { display: inline-block; animation: spin 0.7s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
-
-  .live-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--green-dim);
-    border: 1px solid rgba(57,255,106,0.3);
-    border-radius: 20px;
-    padding: 6px 14px;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--green);
-    letter-spacing: 0.5px;
-  }
-
-  .live-dot {
-    width: 7px; height: 7px;
-    background: var(--green);
-    border-radius: 50%;
-    animation: pulse 1.5s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-  }
-
-  /* scroll indicator */
-  .scroll-hint {
-    position: absolute;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    color: var(--muted);
-    font-size: 11px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    animation: bounce 2s ease-in-out infinite;
-  }
-
-  @keyframes bounce {
-    0%, 100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(6px); }
-  }
-
-  /* ── RESULTS SECTION ── */
-  .results-section {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 48px 32px 64px;
-  }
-
-  .section-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 28px;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-
-  .section-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 32px;
-    letter-spacing: 1px;
-    color: var(--white);
-  }
-
-  .summary-pill {
-    background: var(--green-dim);
-    border: 1px solid rgba(57,255,106,0.2);
-    border-radius: 20px;
-    padding: 6px 16px;
-    font-size: 13px;
-    color: var(--green);
-    font-weight: 500;
-  }
-
-  /* ── CAROUSEL ── */
-  .carousel-nav {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-
-  .nav-btn {
-    width: 38px; height: 38px;
-    border-radius: 50%;
-    border: 1.5px solid var(--border);
-    background: var(--card);
-    color: var(--white);
-    font-size: 16px;
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.15s;
-  }
-
-  .nav-btn:hover:not(:disabled) {
-    border-color: var(--green);
-    color: var(--green);
-    box-shadow: var(--green-glow);
-  }
-
+  .live-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--green-dim); border: 1px solid rgba(57,255,106,0.3); border-radius: 20px; padding: 6px 14px; font-size: 12px; font-weight: 600; color: var(--green); letter-spacing: 0.5px; }
+  .live-dot { width: 7px; height: 7px; background: var(--green); border-radius: 50%; animation: pulse 1.5s ease-in-out infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+  .scroll-hint { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--muted); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; animation: bounce 2s ease-in-out infinite; }
+  @keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(6px); } }
+  .results-section { max-width: 1100px; margin: 0 auto; padding: 48px 32px 64px; }
+  .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 12px; }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 1px; color: var(--white); }
+  .summary-pill { background: var(--green-dim); border: 1px solid rgba(57,255,106,0.2); border-radius: 20px; padding: 6px 16px; font-size: 13px; color: var(--green); font-weight: 500; }
+  .carousel-nav { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+  .nav-btn { width: 38px; height: 38px; border-radius: 50%; border: 1.5px solid var(--border); background: var(--card); color: var(--white); font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+  .nav-btn:hover:not(:disabled) { border-color: var(--green); color: var(--green); box-shadow: var(--green-glow); }
   .nav-btn:disabled { opacity: 0.25; cursor: not-allowed; }
-
-  .venue-tabs {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
-  .venue-tab {
-    padding: 7px 16px;
-    border-radius: 20px;
-    border: 1.5px solid var(--border);
-    background: transparent;
-    color: var(--muted);
-    font-size: 13px;
-    font-weight: 500;
-    font-family: 'Inter', sans-serif;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-
-  .venue-tab.active {
-    border-color: var(--green);
-    color: var(--green);
-    background: var(--green-dim);
-  }
-
-  /* ── SLIDE ── */
+  .venue-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .venue-tab { padding: 7px 16px; border-radius: 20px; border: 1.5px solid var(--border); background: transparent; color: var(--muted); font-size: 13px; font-weight: 500; font-family: 'Inter', sans-serif; cursor: pointer; transition: all 0.15s; }
+  .venue-tab.active { border-color: var(--green); color: var(--green); background: var(--green-dim); }
   .slide { display: none; }
   .slide.active { display: block; animation: fadeIn 0.25s ease; }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .venue-card {
-    background: var(--card);
-    border: 1.5px solid var(--border);
-    border-radius: 16px;
-    overflow: hidden;
-    margin-bottom: 20px;
-  }
-
-  .venue-card-header {
-    padding: 20px 24px 18px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-
-  .venue-card-header h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 26px;
-    letter-spacing: 0.5px;
-    color: var(--white);
-  }
-
-  .venue-card-header p {
-    font-size: 13px;
-    color: var(--muted);
-    margin-top: 3px;
-  }
-
-  .book-link {
-    background: transparent;
-    border: 1.5px solid var(--border);
-    color: var(--green);
-    text-decoration: none;
-    padding: 8px 18px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    transition: all 0.15s;
-    white-space: nowrap;
-  }
-
-  .book-link:hover {
-    border-color: var(--green);
-    background: var(--green-dim);
-    box-shadow: var(--green-glow);
-  }
-
-  .venue-card-body {
-    padding: 20px 24px;
-  }
-
-  /* ── FIELD CARDS ── */
-  .fields-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 12px;
-  }
-
-  .field-card {
-    background: var(--card2);
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius);
-    overflow: hidden;
-    transition: border-color 0.15s, box-shadow 0.15s;
-  }
-
-  .field-card:hover {
-    border-color: rgba(57,255,106,0.3);
-    box-shadow: 0 0 16px rgba(57,255,106,0.08);
-  }
-
-  .field-card-top {
-    padding: 12px 14px 10px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .field-card-top h3 {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--white);
-  }
-
-  .field-card-top p {
-    font-size: 11px;
-    color: var(--muted);
-    margin-top: 3px;
-  }
-
-  .field-card-body {
-    padding: 12px 14px;
-    min-height: 72px;
-  }
-
-  .slot-tag {
-    display: inline-block;
-    background: var(--green-dim);
-    color: var(--green);
-    border: 1px solid rgba(57,255,106,0.25);
-    border-radius: 5px;
-    padding: 3px 8px;
-    font-size: 11px;
-    font-weight: 600;
-    margin: 2px 2px 2px 0;
-    letter-spacing: 0.2px;
-  }
-
-  .no-slots {
-    font-size: 12px;
-    color: var(--muted);
-    padding: 4px 0;
-  }
-
-  /* ── EMPTY / ERROR ── */
-  .empty-state {
-    text-align: center;
-    padding: 60px 20px;
-    color: var(--muted);
-  }
-
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .venue-card { background: var(--card); border: 1.5px solid var(--border); border-radius: 16px; overflow: hidden; margin-bottom: 20px; }
+  .venue-card-header { padding: 20px 24px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .venue-card-header h2 { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 0.5px; color: var(--white); }
+  .venue-card-header p { font-size: 13px; color: var(--muted); margin-top: 3px; }
+  .book-link { background: transparent; border: 1.5px solid var(--border); color: var(--green); text-decoration: none; padding: 8px 18px; border-radius: 8px; font-size: 13px; font-weight: 600; transition: all 0.15s; white-space: nowrap; }
+  .book-link:hover { border-color: var(--green); background: var(--green-dim); box-shadow: var(--green-glow); }
+  .venue-card-body { padding: 20px 24px; }
+  .fields-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+  .field-card { background: var(--card2); border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; transition: border-color 0.15s, box-shadow 0.15s; }
+  .field-card:hover { border-color: rgba(57,255,106,0.3); box-shadow: 0 0 16px rgba(57,255,106,0.08); }
+  .field-card-top { padding: 12px 14px 10px; border-bottom: 1px solid var(--border); }
+  .field-card-top h3 { font-size: 14px; font-weight: 700; color: var(--white); }
+  .field-card-top p { font-size: 11px; color: var(--muted); margin-top: 3px; }
+  .field-card-body { padding: 12px 14px; min-height: 72px; }
+  .slot-tag { display: inline-block; background: var(--green-dim); color: var(--green); border: 1px solid rgba(57,255,106,0.25); border-radius: 5px; padding: 3px 8px; font-size: 11px; font-weight: 600; margin: 2px 2px 2px 0; }
+  .no-slots { font-size: 12px; color: var(--muted); padding: 4px 0; }
+  .empty-state { text-align: center; padding: 60px 20px; color: var(--muted); }
   .empty-state .icon { font-size: 44px; margin-bottom: 14px; }
   .empty-state h3 { font-size: 18px; font-weight: 600; color: var(--white); margin-bottom: 8px; }
-  .empty-state p { font-size: 14px; }
-
-  /* ── FOOTER ── */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 24px 32px;
-    text-align: center;
-    font-size: 12px;
-    color: var(--muted);
-  }
-
+  .empty-state p { font-size: 14px; line-height: 1.6; }
+  .wakeup-bar { background: var(--green-dim); border: 1px solid rgba(57,255,106,0.2); border-radius: 10px; padding: 10px 20px; margin-top: 14px; font-size: 13px; color: var(--green); display: inline-block; }
+  footer { border-top: 1px solid var(--border); padding: 24px 32px; text-align: center; font-size: 12px; color: var(--muted); }
   footer a { color: var(--green); text-decoration: none; }
-
-  @media (max-width: 600px) {
-    .hero-content { padding: 0 20px; }
-    .results-section { padding: 32px 20px 48px; }
-    .venue-card-header { flex-direction: column; align-items: flex-start; }
-  }
+  @media (max-width: 600px) { .hero-content { padding: 0 20px; } .results-section { padding: 32px 20px 48px; } .venue-card-header { flex-direction: column; align-items: flex-start; } }
 </style>
 </head>
 <body>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
@@ -462,26 +95,22 @@
   <div class="scroll-hint">↓ scroll</div>
 </section>
 
-<!-- RESULTS -->
 <section class="results-section" id="resultsSection">
   <div id="emptyState" class="empty-state">
     <div class="icon">⚽</div>
     <h3>Loading today's availability…</h3>
     <p>Checking all fields across Edmonton.</p>
   </div>
-
   <div id="carouselContainer" style="display:none">
     <div class="section-header">
       <div class="section-title" id="sectionTitle">Today's Fields</div>
       <div class="summary-pill" id="summaryPill"></div>
     </div>
-
     <div class="carousel-nav">
       <button class="nav-btn" id="prevBtn" onclick="navigate(-1)">←</button>
       <div class="venue-tabs" id="venueTabs"></div>
       <button class="nav-btn" id="nextBtn" onclick="navigate(1)">→</button>
     </div>
-
     <div id="slides"></div>
   </div>
 </section>
@@ -493,58 +122,59 @@
 </footer>
 
 <script>
+const API = 'https://yeg-soccer-bookings-finder-2.onrender.com';
+
 const VENUES = [
   {
     name: 'Turf Training Centre — TTC1',
     address: '5820 59th Ave NW, Edmonton',
     bookingUrl: 'https://portal.sportskey.com/venues/turf-training-centre',
     fields: ['Field A - TTC1', 'Field B - TTC1', 'Field C - TTC1'],
-    meta: {
-      'Field A - TTC1': '50×30yd · Field Turf',
-      'Field B - TTC1': '50×30yd · Field Turf',
-      'Field C - TTC1': '30×16yd · Hybrid Turf',
-    }
+    meta: { 'Field A - TTC1': '50x30yd · Field Turf', 'Field B - TTC1': '50x30yd · Field Turf', 'Field C - TTC1': '30x16yd · Hybrid Turf' }
   },
   {
     name: 'Turf Training Centre — TTC4',
     address: '1030 34th Ave, Nisku AB',
     bookingUrl: 'https://portal.sportskey.com/venues/turf-training-centre',
     fields: ['Field F - TTC4', 'Field G - TTC4', 'Field H - TTC4', 'Field I - TTC4'],
-    meta: {
-      'Field F - TTC4': '50×40yd · Field Turf',
-      'Field G - TTC4': '50×40yd · Field Turf',
-      'Field H - TTC4': '50×40yd · Field Turf',
-      'Field I - TTC4': '50×40yd · Field Turf',
-    }
+    meta: { 'Field F - TTC4': '50x40yd · Field Turf', 'Field G - TTC4': '50x40yd · Field Turf', 'Field H - TTC4': '50x40yd · Field Turf', 'Field I - TTC4': '50x40yd · Field Turf' }
   },
   {
     name: 'Edmonton Soccer Dome',
     address: 'Edmonton Scottish Society',
     bookingUrl: 'https://portal.sportskey.com/venues/edmonton-scottish-society',
     fields: ['Full Field - Soccer Dome','T1 - Soccer Dome','T2 - Soccer Dome','T3 - Soccer Dome','Q1 - Soccer Dome','Q2 - Soccer Dome','Q3 - Soccer Dome','Q4 - Soccer Dome'],
-    meta: {
-      'Full Field - Soccer Dome': '11v11 · Field Turf',
-      'T1 - Soccer Dome': '1/3 Field · 9v9',
-      'T2 - Soccer Dome': '1/3 Field · 9v9',
-      'T3 - Soccer Dome': '1/3 Field · 9v9',
-      'Q1 - Soccer Dome': '1/4 Field · 7v7',
-      'Q2 - Soccer Dome': '1/4 Field · 7v7',
-      'Q3 - Soccer Dome': '1/4 Field · 7v7',
-      'Q4 - Soccer Dome': '1/4 Field · 7v7',
-    }
+    meta: { 'Full Field - Soccer Dome': '11v11 · Field Turf', 'T1 - Soccer Dome': '1/3 Field · 9v9', 'T2 - Soccer Dome': '1/3 Field · 9v9', 'T3 - Soccer Dome': '1/3 Field · 9v9', 'Q1 - Soccer Dome': '1/4 Field · 7v7', 'Q2 - Soccer Dome': '1/4 Field · 7v7', 'Q3 - Soccer Dome': '1/4 Field · 7v7', 'Q4 - Soccer Dome': '1/4 Field · 7v7' }
   }
 ];
 
 let currentSlide = 0;
 
-function todayStr() {
-  return new Date().toISOString().split('T')[0];
-}
+function todayStr() { return new Date().toISOString().split('T')[0]; }
 
 const dp = document.getElementById('datePicker');
 dp.value = todayStr();
 dp.min = todayStr();
 dp.addEventListener('change', search);
+
+async function fetchWithRetry(url) {
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const res = await fetch(url, { signal: AbortSignal.timeout(90000) });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return await res.json();
+    } catch (e) {
+      if (attempt === 3) throw e;
+      document.getElementById('emptyState').innerHTML = `
+        <div class="icon"><span class="spin">&#8635;</span></div>
+        <h3>Server is waking up…</h3>
+        <p>Render's free tier spins down when idle. This takes up to 60 seconds.</p>
+        <div class="wakeup-bar">Attempt ${attempt + 1} of 3…</div>
+      `;
+      await new Promise(r => setTimeout(r, 8000));
+    }
+  }
+}
 
 async function search() {
   const date = dp.value;
@@ -555,28 +185,24 @@ async function search() {
   btn.disabled = true;
   icon.classList.add('spin');
 
-  const title = document.getElementById('sectionTitle');
-  title.textContent = date === todayStr() ? "Today's Fields" : `Fields on ${date}`;
-
+  document.getElementById('sectionTitle').textContent = date === todayStr() ? "Today's Fields" : 'Fields on ' + date;
   document.getElementById('emptyState').style.display = 'block';
   document.getElementById('emptyState').innerHTML = `
-    <div class="icon"><span class="spin">↻</span></div>
+    <div class="icon"><span class="spin">&#8635;</span></div>
     <h3>Checking all fields…</h3>
     <p>Fetching live availability from SportsKey.</p>
   `;
   document.getElementById('carouselContainer').style.display = 'none';
 
   try {
-    const res = await fetch(`http://127.0.0.1:8000/slots?date=${date}`);
-    const data = await res.json();
+    const data = await fetchWithRetry(API + '/slots?date=' + date);
     renderCarousel(data.results);
-    // scroll to results
     document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
   } catch(e) {
     document.getElementById('emptyState').innerHTML = `
-      <div class="icon">⚠️</div>
-      <h3>Backend not reachable</h3>
-      <p>Make sure uvicorn is running: <code style="color:#39ff6a">uvicorn main:app --reload</code></p>
+      <div class="icon">&#9888;</div>
+      <h3>Could not reach the server</h3>
+      <p>The server may be temporarily unavailable.<br>Please try again in a moment.</p>
     `;
   } finally {
     btn.disabled = false;
@@ -591,70 +217,52 @@ function renderCarousel(results) {
   tabsEl.innerHTML = '';
   currentSlide = 0;
 
-  let totalSlots = 0;
-  let facilitiesWithSlots = 0;
+  let totalSlots = 0, facilitiesWithSlots = 0;
 
   VENUES.forEach((venue, i) => {
-    // tab
     const tab = document.createElement('button');
     tab.className = 'venue-tab' + (i === 0 ? ' active' : '');
     tab.textContent = venue.name.split('—')[1]?.trim() || venue.name;
     tab.onclick = () => goTo(i);
     tabsEl.appendChild(tab);
 
-    // slide
     const slide = document.createElement('div');
     slide.className = 'slide' + (i === 0 ? ' active' : '');
 
     const venueCard = document.createElement('div');
     venueCard.className = 'venue-card';
-
     venueCard.innerHTML = `
       <div class="venue-card-header">
-        <div>
-          <h2>${venue.name}</h2>
-          <p>📍 ${venue.address}</p>
-        </div>
-        <a href="${venue.bookingUrl}" target="_blank" class="book-link">Book on SportsKey ↗</a>
+        <div><h2>${venue.name}</h2><p>&#128205; ${venue.address}</p></div>
+        <a href="${venue.bookingUrl}" target="_blank" class="book-link">Book on SportsKey &#8599;</a>
       </div>
-      <div class="venue-card-body">
-        <div class="fields-grid" id="grid-${i}"></div>
-      </div>
+      <div class="venue-card-body"><div class="fields-grid" id="grid-${i}"></div></div>
     `;
 
     slide.appendChild(venueCard);
     slidesEl.appendChild(slide);
 
-    const grid = venueCard.querySelector(`#grid-${i}`);
+    const grid = venueCard.querySelector('#grid-' + i);
     venue.fields.forEach(fieldName => {
       const facilityData = results.find(r => r.facility === fieldName);
       const slots = facilityData ? facilityData.slots : [];
       if (slots.length > 0) facilitiesWithSlots++;
       totalSlots += slots.length;
 
-      const shortName = fieldName
-        .replace(' - TTC1','').replace(' - TTC4','').replace(' - Soccer Dome','');
-
+      const shortName = fieldName.replace(' - TTC1','').replace(' - TTC4','').replace(' - Soccer Dome','');
       const card = document.createElement('div');
       card.className = 'field-card';
       card.innerHTML = `
-        <div class="field-card-top">
-          <h3>${shortName}</h3>
-          <p>${venue.meta[fieldName] || ''}</p>
-        </div>
+        <div class="field-card-top"><h3>${shortName}</h3><p>${venue.meta[fieldName] || ''}</p></div>
         <div class="field-card-body">
-          ${slots.length > 0
-            ? slots.map(s => `<span class="slot-tag">${s}</span>`).join('')
-            : '<div class="no-slots">No availability</div>'
-          }
+          ${slots.length > 0 ? slots.map(s => '<span class="slot-tag">' + s + '</span>').join('') : '<div class="no-slots">No availability</div>'}
         </div>
       `;
       grid.appendChild(card);
     });
   });
 
-  document.getElementById('summaryPill').textContent =
-    `${totalSlots} slots across ${facilitiesWithSlots} fields`;
+  document.getElementById('summaryPill').textContent = totalSlots + ' slots across ' + facilitiesWithSlots + ' fields';
   document.getElementById('emptyState').style.display = 'none';
   document.getElementById('carouselContainer').style.display = 'block';
   updateNav();
@@ -679,7 +287,6 @@ function updateNav() {
   document.getElementById('nextBtn').disabled = currentSlide === VENUES.length - 1;
 }
 
-// auto-load today on page open
 search();
 </script>
 </body>
